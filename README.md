@@ -1,13 +1,14 @@
-# Trabalho 2 de Programação para Dispositivos Móveis - Woods
+# Trabalho 2 de Programação para Dispositivos Móveis 
 Aluno: Tiago Clarintino Santi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RGA: 2021.1906.036-0</br>
 Este é um aplicativo Android feito para avaliação da disciplina de Programação para Dispositivos Móveis - T02, da UFMS, no período de 2021-2.
 
-## Visão Geral
-Woods é um software que aponta localizações de espécies de árvores através do Google Maps.</br>
-A ideia geral do app é que os usuários contribuam para o enriquecimento de informações em relação a essas localizações, auxiliando-os mutuamente para que encontrem as espécies que buscam seja qual for o objetivo desse encontro. Cada usuário teria uma pontuação proporcional à sua contribuição para o aplicativo como forma de incentivo.</br>
-O uso de *banco de dados*, *Google Maps* e sistema de *cadastro e login de usuários* são prioridade no desenvolvimento do aplicativo.
+## Visão Geral <img src="./readme%20imgs/idea.png" width="40"/>
+<img src="./app/src/main/res/drawable/sprout.png" width="20"/> **Woods** é um software mobile que aponta localizações de espécies de árvores através do Google Maps.</br>
+A ideia geral do app é que os usuários contribuam para o enriquecimento de informações em relação a essas localizações, auxiliando-os mutuamente para que encontrem as espécies que buscam seja qual for o objetivo desse encontro. Cada usuário teria uma pontuação proporcional à sua contribuição para o aplicativo como forma de incentivo.</br></br>
 
-Nas seções seguintes estão os tipos de usuário e alguns requisitos obrigatórios e desejados para o software.
+O uso de **banco de dados**, **Google Maps** e sistema de **cadastro e login de usuários** e de suas respectivas **pontuações** são prioridade no desenvolvimento do aplicativo.
+
+Nas seções seguintes estão os tipos de usuário e seus papéis, e alguns requisitos obrigatórios e desejados para o software.
 
 ## Usuários
 Admin - pode fazer a inclusão, alteração e exclusão de usuários, espécies e localizações, bem como seus dados armazenados.</br>
