@@ -9,22 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class CadastrarUsuario extends AppCompatActivity {
 
     EditText edtUsername, edtSenha, edtConfirmarSenha;
     TextView txtErroCadastro;
     Button btnCriarConta;
 
-    DBHelper db;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_usuario);
 
-        db = new DBHelper(this);
-
-        edtUsername = findViewById(R.id.edtUsernameCadastro);
+        edtUsername = findViewById(R.id.edtEmailCadastro);
         edtSenha = findViewById(R.id.edtSenha);
         edtConfirmarSenha = findViewById(R.id.edtConfirmarSenha);
         txtErroCadastro = findViewById(R.id.txtErroCadastro);
@@ -43,17 +41,17 @@ public class CadastrarUsuario extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(username) || TextUtils.isEmpty(senha) || TextUtils.isEmpty(confSenha)) {
                     txtErroCadastro.setText("Existe(m) campo(s) não preenchido(s)");
+                    txtErroCadastro.setVisibility(View.VISIBLE);
                 }
                 else if(!senha.equals(confSenha)) {
                     txtErroCadastro.setText("Senhas não coincidem");
+                    txtErroCadastro.setVisibility(View.VISIBLE);
                 }
+                //else if(EMAIL JÁ CADASTRADO) {
+
+                // }
                 else {
-                    if(db.verificarUsuario(username)) {
-                        txtErroCadastro.setText("Nome de usuário já existente");
-                    }
-                    else {
-                        db.inserir(username, senha);
-                    }
+                    //CADASTRAR USUARIO
                 }
             }
         });

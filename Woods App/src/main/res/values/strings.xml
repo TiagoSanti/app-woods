@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Trab2</string>
+    <string name="app_name">Woods</string>
     <string name="title_activity_maps">Maps</string>
-    <string name="AppName">Woods</string>
     <string name="txt_cadastre_se"><u>Cadastre-se</u></string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
