@@ -7,7 +7,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "com.example.trab2"
+        applicationId "com.example.woods"
         minSdk 21
         targetSdk 30
         versionCode 1

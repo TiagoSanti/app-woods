@@ -1,4 +1,4 @@
-package com.example.trab2;
+package com.example.woods;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -10,7 +10,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.trab2.databinding.ActivityMapsBinding;
+import com.example.woods.databinding.ActivityMapsBinding;
 
 public class Maps extends FragmentActivity implements OnMapReadyCallback {
 

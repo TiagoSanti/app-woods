@@ -1,4 +1,4 @@
-package com.example.trab2;
+package com.example.woods;
 
 import org.junit.Test;
 
