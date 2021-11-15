@@ -1,7 +1,9 @@
 package com.example.woods;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -27,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mAuth = FirebaseAuth.getInstance();
 
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -38,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -82,15 +86,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.sair:
-                Toast.makeText(getApplicationContext(), "SAIR", Toast.LENGTH_LONG).show();
+                Intent it = new Intent(MainActivity.this, Login.class);
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                it.putExtra("userEmail", currentUser.getEmail());
+                Log.e("dev_userEmail", currentUser.getEmail());
 
                 mAuth.signOut();
-                startActivity(new Intent(MainActivity.this, Login.class));
-                finish();
+
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(it);
 
                 break;
         }
-
 
         drawerLayout.closeDrawer(GravityCompat.START);
 
