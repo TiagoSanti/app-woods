@@ -28,6 +28,7 @@
         android:text="Mensagem de erro de formulário"
         android:textColor="#FF0000"
         android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
