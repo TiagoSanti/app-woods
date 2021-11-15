@@ -3,11 +3,13 @@ package com.example.woods;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,12 +23,13 @@ import java.util.Objects;
 
 public class Login extends AppCompatActivity {
 
-    EditText edtEmailLogin, edtSenha;
-    Button btnLogin;
-    TextView txtErroLogin, txtCadastro;
-    ProgressBar progressBar;
+    private EditText edtEmailLogin, edtSenha;
+    private Button btnLogin;
+    private TextView txtErroLogin, txtCadastro;
+    private ProgressBar progressBar;
 
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,17 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         edtEmailLogin = findViewById(R.id.edtEmailLogin);
+
+        try {
+            bundle = this.getIntent().getExtras();
+            String userEmail;
+            userEmail = bundle.get("userEmail").toString();
+            edtEmailLogin.setText(userEmail);
+        }
+        catch (NullPointerException nullPointerException) {
+            Log.e("dev_NPElogin", "NPElogin");
+        }
+
         edtSenha = findViewById(R.id.edtSenha);
         btnLogin = findViewById(R.id.btnLogin);
         txtErroLogin = findViewById(R.id.txtErroLogin);
