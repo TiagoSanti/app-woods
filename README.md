@@ -15,19 +15,20 @@ Admin - pode fazer a inclusão, alteração e exclusão de usuários, espécies 
 Comum - pode fazer a inclusão de localização, alteração e exclusão de localizações adicionadas por ele e alteração de seus dados pessoais.
 
 ## <img src="./readme%20imgs/checkbox.png" width="30"/>&nbsp;&nbsp;Requisitos
-* RF-1 O sistema deve permitir a inclusão, alteração e exclusão de usuários com os seguintes atributos: nome de usuário (identificador) e senha obrigatórios, nome, sobrenome e foto opcionais, e pontuação.</br>
+* RF-1 O sistema deve permitir a inclusão, alteração e exclusão de usuários com os seguintes atributos: id, nome, sobrenome, email e senha obrigatórios, foto opcional, e pontuação.</br>
 
 * RF-2 O sistema deve permitir a inclusão, alteração e exclusão de localizações com os seguintes atributos: identificação da espécie, coordenadas, quantidade de avaliações positivas e negativas, e nome de usuário (responsável pela inclusão).</br>
 
-* RF-3 O sistema deve permitir ao administrador visualizar uma lista de classificação das localizações com maior quantidade de avalizações negativas existentes.
+* RF-3 O sistema deve permitir ao usuário a filtragem de espécies quanto à visualização das localizações no mapa.
 
-* RF-4 O sistema deve permitir a filtragem de espécies quanto à visualização das localizações no mapa.
+* RF-4 O sistema deve permitir que os usuário avalie as localizações adicionadas por outros usuários de forma positiva ou negativa, conforme a qualidade da informação (coordenadas e espécie corretas).</br>
 
-* RF-5 O sistema deve permitir que os usuário avalie as localizações adicionadas por outros usuários de forma positiva ou negativa, conforme a qualidade da informação (coordenadas e espécie corretas).</br>
+* RF-5 O sistema deve permitir que o usuário visualize uma listagem de todas as localizações adicionadas por ele.
 
-* RF-6 O sistema deve permitir que o visualize uma listagem de todas as localizações adicionadas por ele.
+* RF-6 O sistema deve conter uma lista pública de classificação de usuários baseada nas suas pontuações.
 
-* RF-7 O sistema deve conter uma lista pública de classificação de usuários baseada nas suas pontuações.
+* RF-7 O sistema deve permitir ao administrador visualizar uma lista de classificação das localizações com maior quantidade de avalizações negativas existentes.
+
 
 
 
