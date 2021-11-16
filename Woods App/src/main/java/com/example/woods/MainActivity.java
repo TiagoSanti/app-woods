@@ -1,12 +1,9 @@
 package com.example.woods;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +11,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.container, new Maps(), "Maps");
-        transaction.commit();
+        transaction.commitNow();
     }
 
     @Override
@@ -76,10 +72,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        FragmentTransaction transaction;
 
         switch (id) {
             case R.id.mapa:
-                Toast.makeText(getApplicationContext(), "MAPA", Toast.LENGTH_LONG).show();
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.container, new Maps(), "Maps");
+                transaction.commitNow();
 
                 break;
 
@@ -88,8 +87,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
 
-            case R.id.perfil:
-                Toast.makeText(getApplicationContext(), "PERFIL", Toast.LENGTH_LONG).show();
+            case R.id.frag_perfil:
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.container, new Perfil(), "Perfil");
+                transaction.commitNow();
 
                 break;
 
@@ -98,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FirebaseUser currentUser = mAuth.getCurrentUser();
 
                 it.putExtra("userEmail", currentUser.getEmail());
-                Log.e("dev_userEmail", currentUser.getEmail());
 
                 mAuth.signOut();
 
