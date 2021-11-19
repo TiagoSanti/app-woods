@@ -1,15 +1,24 @@
 package com.example.woods;
 
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class Usuario {
     private String id;
     private String email;
     private String nome;
     private String sobrenome;
+
+    private String fotoURL;
     private int pontuacao;
-    private boolean verificado;
+    private boolean isVerificado;
+
+    public Usuario() {
+    }
 
     public Usuario(String id, String nome, String sobrenome, String email) {
         this.id = id;
@@ -17,8 +26,9 @@ public class Usuario {
         this.sobrenome = sobrenome;
         this.email = email;
 
+        this.fotoURL = "";
         this.pontuacao = 0;
-        this.verificado = false;
+        this.isVerificado = false;
     }
 
     public String getId() {
@@ -53,6 +63,14 @@ public class Usuario {
         this.sobrenome = sobrenome;
     }
 
+    public String getFotoURL() {
+        return fotoURL;
+    }
+
+    public void setFotoURL(String fotoURL) {
+        this.fotoURL = fotoURL;
+    }
+
     public int getPontuacao() {
         return pontuacao;
     }
@@ -62,15 +80,15 @@ public class Usuario {
     }
 
     public boolean isVerificado() {
-        return verificado;
+        return isVerificado;
     }
 
     public void setVerificado(boolean verificado) {
-        this.verificado = verificado;
+        this.isVerificado = verificado;
     }
 
     public void salvar() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        reference.child("usuario").child(getId()).setValue(this);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("usuarios").document(getId()).set(this);
     }
 }
