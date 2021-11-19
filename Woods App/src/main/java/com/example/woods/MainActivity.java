@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.mapa:
                 transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.container, new Maps(), "Maps");
+                transaction.replace(R.id.container, new Maps());
                 transaction.commitNow();
 
                 break;
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.frag_perfil:
                 transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.container, new Perfil(), "Perfil");
+                transaction.replace(R.id.container, new Perfil());
                 transaction.commitNow();
 
                 break;
