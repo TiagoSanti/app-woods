@@ -80,8 +80,8 @@ public class Perfil extends Fragment {
             public void onClick(View v) {
                 fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.container, new EditarPerfil(), "Editar Perfil");
-                transaction.commit();
+                transaction.replace(R.id.container, new EditarPerfil());
+                transaction.commitNow();
             }
         });
 

@@ -210,7 +210,7 @@ public class EditarPerfil extends Fragment {
 
     public void voltarPerfil() {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, new Perfil(), "Perfil");
-        transaction.commit();
+        transaction.replace(R.id.container, new Perfil());
+        transaction.commitNow();
     }
 }
