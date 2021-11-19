@@ -57,7 +57,6 @@ public class Login extends AppCompatActivity {
         txtCadastro = findViewById(R.id.txtCadastro);
         progressBar = findViewById(R.id.progressBar);
 
-        txtErroLogin.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
