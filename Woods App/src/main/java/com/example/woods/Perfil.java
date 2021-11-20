@@ -1,5 +1,6 @@
 package com.example.woods;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -26,6 +27,8 @@ import com.google.firebase.storage.StorageReference;
 
 public class Perfil extends Fragment {
 
+    private Context context;
+
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private final FirebaseFirestore dbReference = FirebaseFirestore.getInstance();
@@ -39,6 +42,8 @@ public class Perfil extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        context = getActivity().getApplicationContext();
     }
 
     @Override
@@ -62,7 +67,7 @@ public class Perfil extends Fragment {
                     usuario = documentSnapshot.toObject(Usuario.class);
 
                     if(!usuario.getFotoURL().isEmpty()) {
-                        Glide.with(getActivity().getApplicationContext()).load(usuario.getFotoURL()).into(usuarioFoto);
+                        Glide.with(context).load(usuario.getFotoURL()).into(usuarioFoto);
                     }
 
                     txtNomeSobrenome.setText(usuario.getNome() + " " + usuario.getSobrenome());
