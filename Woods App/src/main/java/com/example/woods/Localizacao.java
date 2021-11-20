@@ -5,14 +5,14 @@ public class Localizacao {
     private String nomeEspecie;
     private String fotoURL;
     private String idUsuarioResponsavel;
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
     private boolean isVerificado;
 
     public Localizacao() {
     }
 
-    public Localizacao(String idLocalizacao, String nomeEspecie, String fotoURL, String idUsuarioResponsavel, float latitude, float longitude) {
+    public Localizacao(String idLocalizacao, String nomeEspecie, String fotoURL, String idUsuarioResponsavel, double latitude, double longitude) {
         this.idLocalizacao = idLocalizacao;
         this.nomeEspecie = nomeEspecie;
         this.fotoURL = fotoURL;
@@ -54,7 +54,7 @@ public class Localizacao {
         this.idUsuarioResponsavel = idUsuarioResponsavel;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
@@ -62,7 +62,7 @@ public class Localizacao {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 

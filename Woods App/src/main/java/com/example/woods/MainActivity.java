@@ -2,6 +2,7 @@ package com.example.woods;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager = getSupportFragmentManager();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.container, new Maps(), "Maps");
+        transaction.add(R.id.container, new Maps());
         transaction.commitNow();
     }
 
@@ -79,11 +80,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, new Maps());
                 transaction.commitNow();
+                Log.i("santi_Maps Commit", "Maps Commit");
 
                 break;
 
             case R.id.classificacao:
-                Toast.makeText(getApplicationContext(), "CLASSIFICAÇÃO", Toast.LENGTH_LONG).show();
+
 
                 break;
 
