@@ -72,7 +72,7 @@ public class CadastrarUsuario extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
                                 Usuario usuario = new Usuario(mAuth.getUid(), nome, sobrenome, email);
-                                usuario.salvar();
+                                usuario.save();
 
                                 txtErroCadastro.setVisibility(View.INVISIBLE);
 
