@@ -1,13 +1,16 @@
 package com.example.woods;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -18,10 +21,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    int TAG_CODE_PERMISSION_LOCATION;
+
     private FirebaseAuth mAuth;
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
 
     private FragmentManager fragmentManager;
 
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAuth = FirebaseAuth.getInstance();
 
         drawerLayout = findViewById(R.id.drawerLayout);
-        navigationView = findViewById(R.id.navigationView);
+        NavigationView navigationView = findViewById(R.id.navigationView);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -54,11 +58,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(currentUser == null) {
+        if (currentUser == null) {
             startActivity(new Intent(MainActivity.this, Login.class));
             finish();
+        } else {
+            if(!checkLocPermission()) {
+                askLocPermission();
+            }
         }
     }
 
@@ -113,5 +122,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    public boolean checkLocPermission() {
+        return ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED;
+    }
+
+    public void askLocPermission() {
+        ActivityCompat.requestPermissions(this, new String[] {
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION },
+                TAG_CODE_PERMISSION_LOCATION);
     }
 }
