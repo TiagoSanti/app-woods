@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtNomeEspecie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="3dp"
+        android:text="Nome da Espécie"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtLat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:text="Latitude: 0.000000" />
+
+    <TextView
+        android:id="@+id/txtLong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingBottom="10dp"
+        android:text="Longitude: 0.000000" />
+
+</LinearLayout>
