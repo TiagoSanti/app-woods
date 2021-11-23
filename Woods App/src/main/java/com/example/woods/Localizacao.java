@@ -15,7 +15,7 @@ public class Localizacao {
     public Localizacao() {
     }
 
-    public Localizacao(String nomeEspecie, String fotoURL, String idUsuarioResponsavel, double latitude, double longitude) {
+    public Localizacao(String nomeEspecie, String idUsuarioResponsavel, double latitude, double longitude) {
         this.nomeEspecie = nomeEspecie;
         this.idUsuarioResponsavel = idUsuarioResponsavel;
         this.latitude = latitude;

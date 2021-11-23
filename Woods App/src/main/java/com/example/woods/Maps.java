@@ -67,16 +67,12 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
     private Marker marker;
-    List<Marker> markers = new ArrayList<Marker>();
+    List<Marker> markers = new ArrayList<>();
     private FusedLocationProviderClient client;
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(@NonNull Location location) {
             getCurrentLocation();
-
-            if(myLocation != null) {
-                //Log.i("santi_CurrLoc", myLocation.toString());
-            }
         }
     };
     private LatLng latLngClick, myLocation;
@@ -107,15 +103,15 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         btnAddLoc = view.findViewById(R.id.btnAdicionarLoc);
         btnPermitirLoc = view.findViewById(R.id.btnPermitirLoc);
 
-        if(checkLocPermission()) {
+        if (checkLocPermission()) {
             btnPermitirLoc.setVisibility(View.INVISIBLE);
         }
 
         btnAddLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkLocPermission()) {
-                    if(!adicionarLoc) {
+                if (checkLocPermission()) {
+                    if (!adicionarLoc) {
                         adicionarLoc = true;
                         marker = null;
                         Log.i("santi_addLocClick", "Adicionar Loc " + adicionarLoc);
@@ -126,7 +122,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
                         moveMapToLocation(myLocation, 19);
                     } else {
-                        if(marker != null) {
+                        if (marker != null) {
                             createLocAddWindow();
                         } else {
                             // TODO pedir para adicionar um marcador
@@ -141,14 +137,14 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         btnFiltrarCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(adicionarLoc) {
+                if (adicionarLoc) {
                     btnFiltrarCancelar.setText("Filtrar");
                     btnAddLoc.setText("Adicionar Localização");
 
                     moveMapToLocation(myLocation, 13);
 
                     adicionarLoc = false;
-                    if(marker != null) {
+                    if (marker != null) {
                         marker.remove();
                         marker = null;
                     }
@@ -185,8 +181,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
         client = LocationServices.getFusedLocationProviderClient(context);
 
-        // Permissão para acessar a localização
-        if(checkLocPermission()) {
+        if (checkLocPermission()) {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
 
@@ -194,10 +189,9 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             moveToCurrentLocation();
         } else {
-            //shouldShowRequestPermissionRationale("Sua experiência com o aplicativo será limitada porque não poderemos fornecer todos os nossos recursos sem a permissão de localizá-lo. Deseja autorizar o rastreio?");
             askLocPermission();
 
-            if(checkLocPermission()) {
+            if (checkLocPermission()) {
                 LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
 
@@ -216,7 +210,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         double lon = latLng.longitude;
         latLngClick = new LatLng(lat, lon);
 
-        if(adicionarLoc) {
+        if (adicionarLoc) {
             try {
                 marker.remove();
                 marker = mMap.addMarker(new MarkerOptions().position(latLngClick));
@@ -292,7 +286,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 especie[0] = parent.getSelectedItem().toString();
-                //Log.i("santi_item", "Selected item: " + especie[0]);
             }
 
             @Override
@@ -310,10 +303,10 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
             public void onClick(View v) {
                 String inputEspecie = edtNomeEspecie.getText().toString();
 
-                if(especie[0].equals("Nenhum") && inputEspecie.isEmpty()) {
+                if (especie[0].equals("Nenhum") && inputEspecie.isEmpty()) {
                     txtErro.setText("Nenhuma espécie foi selecionada.");
                     txtErro.setVisibility(View.VISIBLE);
-                } else if(!especie[0].equals("Nenhum") && !inputEspecie.isEmpty()) {
+                } else if (!especie[0].equals("Nenhum") && !inputEspecie.isEmpty()) {
                     txtErro.setText("Selecione uma especie existente OU adicione uma nova espécie.");
                     txtErro.setVisibility(View.VISIBLE);
                 } else {
@@ -321,17 +314,16 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
                     Localizacao localizacao;
                     String nomeEspecie;
-                    if(!especie[0].equals("Nenhum")) {
+                    if (!especie[0].equals("Nenhum")) {
                         nomeEspecie = especie[0];
                     } else {
                         nomeEspecie = inputEspecie;
                     }
-                    String fotoURL = "";
                     String idUsuarioResponsavel = FirebaseAuth.getInstance().getUid();
                     double latitude = marker.getPosition().latitude;
                     double longitude = marker.getPosition().longitude;
 
-                    localizacao = new Localizacao(nomeEspecie, fotoURL, idUsuarioResponsavel, latitude, longitude);
+                    localizacao = new Localizacao(nomeEspecie, idUsuarioResponsavel, latitude, longitude);
                     localizacao.save();
 
                     documentReference = db.collection("usuarios").document(idUsuarioResponsavel);
@@ -345,7 +337,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                     });
                     Log.i("santi_locAddSuccess", "Loc Add Success!");
 
-                    if(marker != null) {
+                    if (marker != null) {
                         marker.remove();
                         marker = null;
                     }
@@ -365,7 +357,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     }
 
     private List<Marker> addMarkers(String especieFiltro) {
-        for(int i = 0; i < markers.size(); i++) {
+        for (int i = 0; i < markers.size(); i++) {
             markers.get(i).remove();
         }
 
@@ -380,12 +372,12 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(document != null) {
+                                if (document != null) {
                                     Location location = new Location("marker");
                                     location.setLatitude((double) document.get("latitude"));
                                     location.setLongitude((double) document.get("longitude"));
 
-                                    if(myLocation != null) {
+                                    if (myLocation != null) {
                                         Location myLoc = new Location("my loc");
                                         myLoc.setLatitude(myLocation.latitude);
                                         myLoc.setLongitude(myLocation.longitude);
@@ -393,7 +385,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                                         double distance = myLoc.distanceTo(location);
 
                                         Log.i("santi_locDistance", "distance: " + distance);
-                                        if(distance < 12000) {
+                                        if (distance < 12000) {
                                             markers.add(mMap.addMarker(new MarkerOptions()
                                                     .position(new LatLng(location.getLatitude(), location.getLongitude()))
                                                     .title(especieFiltro)
@@ -433,11 +425,11 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     }
 
     private void moveMapToLocation(LatLng latLng, int zoom) {
-        if(mapFragment != null) {
+        if (mapFragment != null) {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(@NonNull GoogleMap googleMap) {
-                    if(latLng != null) {
+                    if (latLng != null) {
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
                     }
                 }
@@ -450,7 +442,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if(location != null) {
+                if (location != null) {
                     myLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 }
             }
@@ -462,8 +454,8 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if(location != null) {
-                    if(mapFragment != null) {
+                if (location != null) {
+                    if (mapFragment != null) {
                         mapFragment.getMapAsync(new OnMapReadyCallback() {
                             @Override
                             public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -486,40 +478,9 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     }
 
     public void askLocPermission() {
-        ActivityCompat.requestPermissions(activity, new String[] {
+        ActivityCompat.requestPermissions(activity, new String[]{
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION },
+                        Manifest.permission.ACCESS_COARSE_LOCATION},
                 TAG_CODE_PERMISSION_LOCATION);
     }
-
-    /*
-    public void showLocPermissionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-        builder.setCancelable(true);
-        builder.setTitle("Permissão de rastreio negada");
-
-        builder.setMessage("Sua experiência com o aplicativo será limitada porque não poderemos " +
-                "fornecer todos os nossos recursos sem a permissão de localizá-lo. " +
-                "Deseja autorizar o rastreio?");
-
-        builder.setPositiveButton("Confirmar",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        askLocPermission();
-                        Log.i("santi_confirm", "confirm permission -> ask again");
-                    }
-                });
-        builder.setNegativeButton("Cancelar",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-        builder.create().show();
-    }
-     */
 }
