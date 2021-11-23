@@ -1,9 +1,12 @@
 package com.example.woods;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class Localizacao {
     private String idLocalizacao;
     private String nomeEspecie;
-    private String fotoURL;
     private String idUsuarioResponsavel;
     private double latitude;
     private double longitude;
@@ -12,10 +15,8 @@ public class Localizacao {
     public Localizacao() {
     }
 
-    public Localizacao(String idLocalizacao, String nomeEspecie, String fotoURL, String idUsuarioResponsavel, double latitude, double longitude) {
-        this.idLocalizacao = idLocalizacao;
+    public Localizacao(String nomeEspecie, String fotoURL, String idUsuarioResponsavel, double latitude, double longitude) {
         this.nomeEspecie = nomeEspecie;
-        this.fotoURL = fotoURL;
         this.idUsuarioResponsavel = idUsuarioResponsavel;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -36,14 +37,6 @@ public class Localizacao {
 
     public void setNomeEspecie(String nomeEspecie) {
         this.nomeEspecie = nomeEspecie;
-    }
-
-    public String getFotoURL() {
-        return fotoURL;
-    }
-
-    public void setFotoURL(String fotoURL) {
-        this.fotoURL = fotoURL;
     }
 
     public String getIdUsuarioResponsavel() {
@@ -76,5 +69,13 @@ public class Localizacao {
 
     public void setVerificado(boolean verificado) {
         isVerificado = verificado;
+    }
+
+    public void save() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection("localizacoes").document();
+        String id = ref.getId();
+        this.setIdLocalizacao(id);
+        db.collection("localizacoes").document(id).set(this);
     }
 }
