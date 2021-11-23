@@ -87,8 +87,26 @@ public class Usuario {
         this.isVerificado = verificado;
     }
 
-    public void salvar() {
+    public void save() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("usuarios").document(getId()).set(this);
+    }
+
+    public void alterarPontuacao(int tag) {
+        switch (tag) {
+            case 1: // adicionar nova localização
+                this.pontuacao += 5;
+                break;
+
+            case 2: // loc up
+                this.pontuacao += 1;
+                break;
+
+            case 3: // localizacao verificada
+                this.pontuacao += 25;
+
+            case 4: // localizacao removida
+                this.pontuacao -= 10;
+        }
     }
 }
