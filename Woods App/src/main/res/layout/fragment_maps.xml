@@ -11,9 +11,9 @@
         android:id="@+id/btnFiltrarCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginLeft="5dp"
-        android:text="Filtrar">
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="45dp"
+        android:text="Escolher Árvore">
 
     </Button>
 
@@ -21,7 +21,8 @@
         android:id="@+id/btnAdicionarLoc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
+        android:layout_gravity="start"
+        android:layout_marginStart="5dp"
         android:text="Adicionar Localização">
 
     </Button>

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,6 +34,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -43,12 +46,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
@@ -58,12 +62,12 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
     private Activity activity;
     private Context context;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
-    private Query query;
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
     private Marker marker;
+    List<Marker> markers = new ArrayList<Marker>();
     private FusedLocationProviderClient client;
     private final LocationListener locationListener = new LocationListener() {
         @Override
@@ -149,7 +153,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                         marker = null;
                     }
                 } else {
-                    // TODO implementar filtro
+                    createFilterWindow();
                 }
             }
         });
@@ -181,9 +185,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
         client = LocationServices.getFusedLocationProviderClient(context);
 
-        addBoundMarkers();
-        getArrayLoc("Aceroleira");
-
         // Permissão para acessar a localização
         if(checkLocPermission()) {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -195,7 +196,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         } else {
             //shouldShowRequestPermissionRationale("Sua experiência com o aplicativo será limitada porque não poderemos fornecer todos os nossos recursos sem a permissão de localizá-lo. Deseja autorizar o rastreio?");
             askLocPermission();
-
 
             if(checkLocPermission()) {
                 LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -226,6 +226,46 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         }
     }
 
+    public void createFilterWindow() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        AlertDialog dialog;
+
+        final View view = getLayoutInflater().inflate(R.layout.popup_filtro, null);
+
+        Spinner spinner = view.findViewById(R.id.spinnerFiltro);
+        Button btnConfirmar = view.findViewById(R.id.btnConfirmarFiltro);
+
+        final String[] especie = new String[1];
+        ArrayList<String> especiesArray = getArrayEspecies();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
+                R.layout.spinner,
+                especiesArray);
+        spinner.setAdapter(adapter);
+
+        dialogBuilder.setView(view);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                especie[0] = parent.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        btnConfirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Marker> markers = addMarkers(especie[0]);
+                dialog.dismiss();
+            }
+        });
+    }
+
     public void createLocAddWindow() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         AlertDialog dialog;
@@ -233,7 +273,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         ArrayList<String> especiesArray;
         ArrayAdapter<String> adapter;
 
-        final View view = getLayoutInflater().inflate(R.layout.popup, null);
+        final View view = getLayoutInflater().inflate(R.layout.popup_add, null);
 
         TextView txtErro = view.findViewById(R.id.txtErroAddLoc);
         EditText edtNomeEspecie = view.findViewById(R.id.edtNomeEspecie);
@@ -247,6 +287,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                 R.layout.spinner,
                 especiesArray);
         spinnerEspecies.setAdapter(adapter);
+        Log.i("santi_itemSpinnerCount", "Count: " + spinnerEspecies.getCount());
         spinnerEspecies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -323,55 +364,49 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         });
     }
 
-    private void addBoundMarkers() {
+    private List<Marker> addMarkers(String especieFiltro) {
+        for(int i = 0; i < markers.size(); i++) {
+            markers.get(i).remove();
+        }
+
+        Random rnd = new Random();
+        int color = rnd.nextInt(256);
+
         db.collection("localizacoes")
+                .whereEqualTo("nomeEspecie", especieFiltro)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Location location = new Location("marker");
-                                location.setLatitude((double) document.get("latitude"));
-                                location.setLongitude((double) document.get("longitude"));
+                                if(document != null) {
+                                    Location location = new Location("marker");
+                                    location.setLatitude((double) document.get("latitude"));
+                                    location.setLongitude((double) document.get("longitude"));
 
-                                Location myLoc = new Location("my loc");
-                                myLoc.setLatitude(myLocation.latitude);
-                                myLoc.setLongitude(myLocation.longitude);
+                                    if(myLocation != null) {
+                                        Location myLoc = new Location("my loc");
+                                        myLoc.setLatitude(myLocation.latitude);
+                                        myLoc.setLongitude(myLocation.longitude);
 
-                                double distance = myLoc.distanceTo(location);
+                                        double distance = myLoc.distanceTo(location);
 
-                                Log.i("santi_locDistance", "distance: " + distance);
-                                if(distance < 2000) {
-
+                                        Log.i("santi_locDistance", "distance: " + distance);
+                                        if(distance < 12000) {
+                                            markers.add(mMap.addMarker(new MarkerOptions()
+                                                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                                    .title(especieFiltro)
+                                                    .icon(BitmapDescriptorFactory.defaultMarker(color))));
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 });
-    }
 
-    private ArrayList<String> getArrayLoc(String especie) {
-        ArrayList<String> locArray = new ArrayList<>();
-        final DocumentReference[] documentReference = new DocumentReference[1];
-
-        db.collection("localizacoes")
-                .whereEqualTo("nomeEspecie", especie)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                locArray.add(document.getId());
-                                Log.d("santi_locId", "Loc dog id: " + document.getId());
-
-                            }
-                        }
-                    }
-                });
-
-        return locArray;
+        return markers;
     }
 
     private ArrayList<String> getArrayEspecies() {
