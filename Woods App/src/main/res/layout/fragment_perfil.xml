@@ -5,9 +5,10 @@
     android:id="@+id/frag_perfil"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragmentos.Perfil">
+    tools:context=".Fragmentos.Perfil"
+    android:background="#E5F3B3">
 
-    <TextView
+<TextView
         android:id="@+id/txtNomeSobrenomePerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,6 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
         android:layout_marginEnd="16dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/button"
         android:text="Editar Perfil"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E5F3B3"
     tools:context=".Fragmentos.EditarPerfil">
 
     <EditText
@@ -36,6 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="68dp"
+        android:background="@drawable/button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="Carregar Foto"
         app:layout_constraintStart_toEndOf="@+id/imgUsuarioEditar"
         app:layout_constraintTop_toTopOf="parent" />
@@ -56,8 +60,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
+        android:background="@drawable/button"
         android:text="Salvar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnCancelarEdicao"
         app:layout_constraintTop_toBottomOf="@+id/txtErroEditarPerfil" />
 
     <Button
@@ -66,7 +73,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/button"
+
         android:text="Cancelar"
+        app:layout_constraintEnd_toStartOf="@+id/btnSalvarEditar"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtErroEditarPerfil" />
 
@@ -98,12 +109,13 @@
         android:id="@+id/txtErroEditarPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
         android:layout_marginTop="20dp"
         android:text="Mensagem de erro (editar perfil)"
         android:textColor="#FF0000"
         android:textStyle="bold"
         android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtRepetirNovaSenha" />
 </androidx.constraintlayout.widget.ConstraintLayout>

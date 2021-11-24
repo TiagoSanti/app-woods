@@ -16,7 +16,7 @@
         <item
             android:id="@+id/sair"
             android:icon="@drawable/baseline_logout_black_24"
-            android:title="Sair"/>
+            android:title="Sair" />
 
     </group>
 </menu>
