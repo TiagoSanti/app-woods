@@ -16,22 +16,22 @@ Nas seções seguintes estão os tipos de usuário e seus papéis, e alguns requ
 
 ## <img src="./readme%20imgs/user.png" width="30"/>&nbsp;&nbsp;Usuários
 Admin - pode fazer a inclusão, alteração e exclusão de usuários, espécies e localizações, bem como seus dados armazenados.</br>
-Comum - pode fazer a inclusão de localização, alteração e exclusão de localizações adicionadas por ele e alteração de seus dados pessoais.
+Comum - pode fazer a inclusão de localizações e espécies, e alteração de seus dados pessoais.
 
 ## <img src="./readme%20imgs/checkbox.png" width="30"/>&nbsp;&nbsp;Requisitos
-* RF-1 O sistema deve permitir a inclusão, alteração e exclusão de usuários com os seguintes atributos: id, nome, sobrenome, email e senha obrigatórios, foto opcional, e pontuação.</br>
+* RF-1 O sistema deve permitir a inclusão, alteração e exclusão de usuários com os seguintes atributos: id, nome, sobrenome, email e senha obrigatórios, foto opcional e pontuação. <img src="./readme%20imgs/check.png" alt="drawing" width="20"/>&nbsp;&nbsp; </br>
 
-* RF-2 O sistema deve permitir a inclusão, alteração e exclusão de localizações com os seguintes atributos: identificação da espécie, coordenadas, quantidade de avaliações positivas e negativas, e nome de usuário (responsável pela inclusão).</br>
+* RF-2 O sistema deve permitir a inclusão de localizações com os seguintes atributos: identificação da espécie, nome da espécie, coordenadas, e nome de usuário responsável pela inclusão. <img src="./readme%20imgs/check.png" alt="drawing" width="20"/>&nbsp;&nbsp; </br>
 
-* RF-3 O sistema deve permitir ao usuário a filtragem de espécies quanto à visualização das localizações no mapa.
+* RF-3 O sistema deve permitir ao usuário a filtragem de espécies quanto à visualização das localizações no mapa. <img src="./readme%20imgs/check.png" alt="drawing" width="20"/>&nbsp;&nbsp; </br>
 
-* RF-4 O sistema deve permitir que os usuário avalie as localizações adicionadas por outros usuários de forma positiva ou negativa, conforme a qualidade da informação (coordenadas e espécie corretas).</br>
+* RF-4 O sistema deve permitir que o usuário visualize uma listagem de todas as localizações adicionadas por ele. <img src="./readme%20imgs/check.png" alt="drawing" width="20"/>&nbsp;&nbsp; </br>
 
-* RF-5 O sistema deve permitir que o usuário visualize uma listagem de todas as localizações adicionadas por ele.
+* RF-5 O sistema deve garantir segurança para as senhas dos usuários cadastrados. <img src="./readme%20imgs/check.png" alt="drawing" width="20"/>&nbsp;&nbsp; </br>
 
-* RF-6 O sistema deve conter uma lista pública de classificação de usuários baseada nas suas pontuações.
+* RF-6 O sistema deve permitir a visualização de uma classificação dos usuários com base em suas pontuações. <img src="./readme%20imgs/not_check.png" alt="drawing" width="20"/>&nbsp;&nbsp; </br>
 
-* RF-7 O sistema deve permitir ao administrador visualizar uma lista de classificação das localizações com maior quantidade de avalizações negativas existentes.
+* RF-7 O sistema deve permitir que os usuários avaliem as localizações adicionadas por outros usuários como positiva e negativa, considerando a qualidade das informações dessas localizações.  <img src="./readme%20imgs/not_check.png" alt="drawing" width="20"/>&nbsp;&nbsp; </br>
 
 
 
