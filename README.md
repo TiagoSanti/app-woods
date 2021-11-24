@@ -39,4 +39,4 @@ Comum - pode fazer a inclusão de localizações e espécies, e alteração de s
 
 
 ### <img src="./readme%20imgs/icon.png" width="25"/>&nbsp;&nbsp;Ícones
-<div>Ícones do app e do Readme feitos por <a href="https://www.freepik.com" title="Freepik">Freepik</a>, de <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+Ícones do app e do Readme feitos por <a href="https://www.freepik.com" title="Freepik">Freepik</a> e <a href="https://fonts.google.com/icons" title="Google Icons">Google Icons</a>.
