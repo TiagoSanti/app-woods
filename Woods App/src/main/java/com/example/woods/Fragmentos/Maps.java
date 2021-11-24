@@ -70,15 +70,15 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     private Marker marker;
     List<Marker> markers = new ArrayList<>();
     private FusedLocationProviderClient client;
+    private LatLng myLocation;
+    private Button btnFiltrarCancelar, btnAddLoc, btnPermitirLoc;
+    private boolean adicionarLoc = false;
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(@NonNull Location location) {
             getCurrentLocation();
         }
     };
-    private LatLng myLocation;
-    private Button btnFiltrarCancelar, btnAddLoc, btnPermitirLoc;
-    private boolean adicionarLoc = false;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -121,15 +121,10 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                         btnPermitirLoc.setVisibility(View.INVISIBLE);
 
                         moveMapToLocation(myLocation, 19);
-                    } else {
-                        if (marker != null) {
-                            createLocAddWindow();
-                        } else {
-                            // TODO pedir para adicionar um marcador
-                        }
+                    } else if (marker != null) {
+                        createLocAddWindow();
                     }
-                } else {
-                    // TODO pedir permissão de novo
+
                 }
             }
         });
@@ -183,7 +178,10 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
         if (checkLocPermission()) {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    LOCATION_REFRESH_TIME,
+                    LOCATION_REFRESH_DISTANCE,
+                    locationListener);
 
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -191,6 +189,8 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         } else {
             askLocPermission();
         }
+
+        markers = addInitialMarkers();
     }
 
     @Override
@@ -243,7 +243,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Marker> markers = addMarkers(especie[0]);
+                markers = addMarkers(especie[0]);
                 dialog.dismiss();
             }
         });
@@ -328,6 +328,8 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                         marker.remove();
                         marker = null;
                     }
+
+                    adicionarLoc = false;
                     btnFiltrarCancelar.setText("Filtrar");
                     btnAddLoc.setText("Adicionar Localização");
                     dialog.dismiss();
@@ -341,6 +343,57 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                 dialog.dismiss();
             }
         });
+    }
+
+    private List<Marker> addInitialMarkers() {
+        for (int i = 0; i < markers.size(); i++) {
+            markers.get(i).remove();
+        }
+
+        final String[] last = {""};
+        final String[] now = new String[1];
+        Random rnd = new Random();
+        final int[] color = new int[1];
+
+        db.collection("localizacoes")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document != null) {
+                                    Location location = new Location("marker");
+                                    location.setLatitude((double) document.get("latitude"));
+                                    location.setLongitude((double) document.get("longitude"));
+
+                                    if (myLocation != null) {
+                                        Location myLoc = new Location("my loc");
+                                        myLoc.setLatitude(myLocation.latitude);
+                                        myLoc.setLongitude(myLocation.longitude);
+
+                                        now[0] = document.get("nomeEspecie").toString();
+                                        if(!now[0].equals(last[0])) {
+                                            color[0] = rnd.nextInt(256);
+                                        }
+
+                                        double distance = myLoc.distanceTo(location);
+                                        if (distance < 12000) {
+                                            markers.add(mMap.addMarker(new MarkerOptions()
+                                                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                                    .title(now[0])
+                                                    .icon(BitmapDescriptorFactory.defaultMarker(color[0]))));
+                                        }
+
+                                        last[0] = now[0];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+        return markers;
     }
 
     private List<Marker> addMarkers(String especieFiltro) {
