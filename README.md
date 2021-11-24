@@ -3,7 +3,7 @@ Aluno: Tiago Clarintino Santi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RGA: 2021.1906.036-0<
 Este é um aplicativo Android desenvolvido como atividade para avaliação da disciplina de Programação para Dispositivos Móveis, da UFMS, no período de 2021-2.
 
 <p align="center">
-  <img src="./readme%20imgs/screenshot.png" width="300"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./readme%20imgs/screenshot2.png" width="300"/>
+  <img src="./readme%20imgs/screenshot.png" width="300"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./readme%20imgs/screenshot3.png"    width="300"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./readme%20imgs/screenshot2.png" width="300"/>
 </p>
 
 ## <img src="./readme%20imgs/idea.png" width="30"/>&nbsp;&nbsp;Visão Geral
