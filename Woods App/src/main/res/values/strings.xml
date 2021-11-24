@@ -4,4 +4,13 @@
     <string name="txt_cadastre_se"><u>Cadastre-se</u></string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="campos_nao_preenchidos">Existe(m) campo(s) não preenchido(s)</string>
+    <string name="senhas_nao_coincidem">Senhas não coincidem</string>
+    <string name="senha_minimo">A senha deve conter no mínimo 6 caracteres.</string>
+    <string name="email_invalido">O email inserido está com formato inválido.</string>
+    <string name="email_cadastrado">O email inserido já está cadastrado.</string>
+    <string name="erro_cadastro">Erro ao fazer o cadastro.</string>
+    <string name="email_senha_incorreto">Email e/ou senha incorreto(s)</string>
+    <string name="campos_senha_invalidos">Campos de senha invalidamente preenchidos.</string>
+    <string name="campos_nome_sobrenome_vazios">Os campos Nome e Sobrenome não podem estar vazios.</string>
 </resources>

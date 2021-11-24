@@ -64,11 +64,11 @@ public class CadastrarUsuario extends AppCompatActivity {
                         || TextUtils.isEmpty(email)
                         || TextUtils.isEmpty(senha)
                         || TextUtils.isEmpty(confSenha)) {
-                    txtErroCadastro.setText("Existe(m) campo(s) não preenchido(s)");
+                    txtErroCadastro.setText(R.string.campos_nao_preenchidos);
                     txtErroCadastro.setVisibility(View.VISIBLE);
                 }
                 else if(!senha.equals(confSenha)) {
-                    txtErroCadastro.setText("Senhas não coincidem");
+                    txtErroCadastro.setText(R.string.senhas_nao_coincidem);
                     txtErroCadastro.setVisibility(View.VISIBLE);
                 }
                 else {
@@ -88,13 +88,13 @@ public class CadastrarUsuario extends AppCompatActivity {
                                 try {
                                     throw task.getException();
                                 } catch (FirebaseAuthWeakPasswordException e) {
-                                    txtErroCadastro.setText("A senha deve conter no mínimo 6 caracteres.");
+                                    txtErroCadastro.setText(R.string.senha_minimo);
                                 } catch (FirebaseAuthInvalidCredentialsException e) {
-                                    txtErroCadastro.setText("O email inserido está com formato inválido.");
+                                    txtErroCadastro.setText(R.string.email_invalido);
                                 } catch (FirebaseAuthUserCollisionException e) {
-                                    txtErroCadastro.setText("O email inserido já está cadastrado.");
+                                    txtErroCadastro.setText(R.string.email_cadastrado);
                                 } catch (Exception e) {
-                                    txtErroCadastro.setText("Erro ao fazer o cadastro.");
+                                    txtErroCadastro.setText(R.string.erro_cadastro);
                                 }
                                 txtErroCadastro.setVisibility(View.VISIBLE);
                             }

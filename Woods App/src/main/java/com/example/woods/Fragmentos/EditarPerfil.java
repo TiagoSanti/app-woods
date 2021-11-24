@@ -139,17 +139,17 @@ public class EditarPerfil extends Fragment {
                         voltarPerfil();
                     }
                     else {
-                        txtErro.setText("A senha deve conter no mínimo 6 caracteres.");
+                        txtErro.setText(R.string.senha_minimo);
                         txtErro.setVisibility(View.VISIBLE);
                     }
                 }
                 else {
-                    txtErro.setText("Senhas não coincidem.");
+                    txtErro.setText(R.string.senhas_nao_coincidem);
                     txtErro.setVisibility(View.VISIBLE);
                 }
             }
             else if(TextUtils.isEmpty(senha) ^ TextUtils.isEmpty(rptSenha)) {
-                txtErro.setText("Campos de senha invalidamente preenchidos.");
+                txtErro.setText(R.string.campos_senha_invalidos);
                 txtErro.setVisibility(View.VISIBLE);
             }
             else {
@@ -161,7 +161,7 @@ public class EditarPerfil extends Fragment {
             }
         }
         else {
-            txtErro.setText("Os campos Nome e Sobrenome não podem estar vazios.");
+            txtErro.setText(R.string.campos_nome_sobrenome_vazios);
             txtErro.setVisibility(View.VISIBLE);
         }
     }

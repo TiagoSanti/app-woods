@@ -76,14 +76,14 @@ public class Login extends AppCompatActivity {
                             }
                             else {
                                 progressBar.setVisibility(View.INVISIBLE);
-                                txtErroLogin.setText("Email e/ou senha incorreto(s)");
+                                txtErroLogin.setText(R.string.email_senha_incorreto);
                                 txtErroLogin.setVisibility(View.VISIBLE);
                             }
                         }
                     });
                 }
                 else {
-                    txtErroLogin.setText("Existe(m) campo(s) não preenchido(s)");
+                    txtErroLogin.setText(R.string.campos_nao_preenchidos);
                     txtErroLogin.setVisibility(View.VISIBLE);
                 }
             }
