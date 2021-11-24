@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.woods.Colecoes.Localizacao;
+
 import java.util.List;
 
 public class RVAdapterLocalizacoes extends RecyclerView.Adapter<RVAdapterLocalizacoes.ViewHolder> {

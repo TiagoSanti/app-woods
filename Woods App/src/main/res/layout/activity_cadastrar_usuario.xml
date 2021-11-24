@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:background="@color/green5"
-    tools:context=".CadastrarUsuario">
+    tools:context=".Atividades.CadastrarUsuario">
 
 
     <EditText

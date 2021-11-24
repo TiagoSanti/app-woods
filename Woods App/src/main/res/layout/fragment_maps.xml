@@ -5,7 +5,7 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Maps" >
+    tools:context=".Fragmentos.Maps" >
 
     <Button
         android:id="@+id/btnFiltrarCancelar"

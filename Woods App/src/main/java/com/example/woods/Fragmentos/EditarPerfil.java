@@ -1,12 +1,10 @@
-package com.example.woods;
+package com.example.woods.Fragmentos;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,7 +12,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,23 +19,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.woods.databinding.ActivityMainBinding;
-import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.example.woods.R;
+import com.example.woods.Colecoes.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -124,43 +113,7 @@ public class EditarPerfil extends Fragment {
                 senha = edtSenha.getText().toString();
                 rptSenha = edtRptSenha.getText().toString();
 
-                if(!TextUtils.isEmpty(nome) && !TextUtils.isEmpty(sobrenome)) {
-                    if(!TextUtils.isEmpty(senha) && !TextUtils.isEmpty(rptSenha)) {
-                        if(senha.equals(rptSenha)) {
-                            if(senha.length() >= 6) {
-                                txtErro.setVisibility(View.INVISIBLE);
-
-                                atualizaUsuario(nome, sobrenome);
-                                user.updatePassword(senha);
-
-                                voltarPerfil();
-                            }
-                            else {
-                                txtErro.setText("A senha deve conter no mínimo 6 caracteres.");
-                                txtErro.setVisibility(View.VISIBLE);
-                            }
-                        }
-                        else {
-                            txtErro.setText("Senhas não coincidem.");
-                            txtErro.setVisibility(View.VISIBLE);
-                        }
-                    }
-                    else if(TextUtils.isEmpty(senha) ^ TextUtils.isEmpty(rptSenha)) {
-                        txtErro.setText("Campos de senha invalidamente preenchidos.");
-                        txtErro.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        txtErro.setVisibility(View.INVISIBLE);
-
-                        atualizaUsuario(nome, sobrenome);
-
-                        voltarPerfil();
-                    }
-                }
-                else {
-                    txtErro.setText("Os campos Nome e Sobrenome não podem estar vazios.");
-                    txtErro.setVisibility(View.VISIBLE);
-                }
+                checkInfo(txtErro, nome, sobrenome, senha, rptSenha);
             }
         });
 
@@ -174,7 +127,47 @@ public class EditarPerfil extends Fragment {
         return view;
     }
 
-    public void atualizaUsuario(String nome, String sobrenome) {
+    private void checkInfo(TextView txtErro, String nome, String sobrenome, String senha, String rptSenha) {
+        if(!TextUtils.isEmpty(nome) && !TextUtils.isEmpty(sobrenome)) {
+            if(!TextUtils.isEmpty(senha) && !TextUtils.isEmpty(rptSenha)) {
+                if(senha.equals(rptSenha)) {
+                    if(senha.length() >= 6) {
+                        txtErro.setVisibility(View.INVISIBLE);
+
+                        updateUsuario(nome, sobrenome);
+                        user.updatePassword(senha);
+
+                        voltarPerfil();
+                    }
+                    else {
+                        txtErro.setText("A senha deve conter no mínimo 6 caracteres.");
+                        txtErro.setVisibility(View.VISIBLE);
+                    }
+                }
+                else {
+                    txtErro.setText("Senhas não coincidem.");
+                    txtErro.setVisibility(View.VISIBLE);
+                }
+            }
+            else if(TextUtils.isEmpty(senha) ^ TextUtils.isEmpty(rptSenha)) {
+                txtErro.setText("Campos de senha invalidamente preenchidos.");
+                txtErro.setVisibility(View.VISIBLE);
+            }
+            else {
+                txtErro.setVisibility(View.INVISIBLE);
+
+                updateUsuario(nome, sobrenome);
+
+                voltarPerfil();
+            }
+        }
+        else {
+            txtErro.setText("Os campos Nome e Sobrenome não podem estar vazios.");
+            txtErro.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void updateUsuario(String nome, String sobrenome) {
         usuario.setNome(nome);
         usuario.setSobrenome(sobrenome);
 
@@ -191,14 +184,8 @@ public class EditarPerfil extends Fragment {
                                     usuario.setFotoURL(task.getResult().toString());
                                     documentReference.set(usuario);
                                 }
-                                else {
-                                    Log.e("santi_downloadError", task.getException().getMessage());
-                                }
                             }
                         });
-                    }
-                    else {
-                        Log.e("santi_uploadError", task.getException().getMessage());
                     }
                 }
             });

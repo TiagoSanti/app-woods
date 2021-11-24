@@ -1,4 +1,4 @@
-package com.example.woods;
+package com.example.woods.Atividades;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.woods.R;
+import com.example.woods.Colecoes.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -58,7 +60,11 @@ public class CadastrarUsuario extends AppCompatActivity {
                 senha = edtSenha.getText().toString();
                 confSenha = edtConfirmarSenha.getText().toString();
 
-                if(TextUtils.isEmpty(nome) || TextUtils.isEmpty(sobrenome) || TextUtils.isEmpty(email) || TextUtils.isEmpty(senha) || TextUtils.isEmpty(confSenha)) {
+                if(TextUtils.isEmpty(nome)
+                        || TextUtils.isEmpty(sobrenome)
+                        || TextUtils.isEmpty(email)
+                        || TextUtils.isEmpty(senha)
+                        || TextUtils.isEmpty(confSenha)) {
                     txtErroCadastro.setText("Existe(m) campo(s) não preenchido(s)");
                     txtErroCadastro.setVisibility(View.VISIBLE);
                 }
@@ -76,7 +82,7 @@ public class CadastrarUsuario extends AppCompatActivity {
 
                                 txtErroCadastro.setVisibility(View.INVISIBLE);
 
-                                startActivity(new Intent(CadastrarUsuario.this, MainActivity.class));
+                                startActivity(new Intent(CadastrarUsuario.this, Main.class));
                                 finish();
                             }
                             else {

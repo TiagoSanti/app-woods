@@ -8,7 +8,7 @@
     android:layout_centerHorizontal="false"
     android:layout_gravity="center_horizontal"
     android:background="@color/green5"
-    tools:context=".MainActivity">
+    tools:context=".Atividades.Main">
 
     <ImageView
         android:id="@+id/AppIcon"

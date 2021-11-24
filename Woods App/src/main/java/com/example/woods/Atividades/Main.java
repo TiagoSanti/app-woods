@@ -1,10 +1,9 @@
-package com.example.woods;
+package com.example.woods.Atividades;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,11 +14,15 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.woods.Fragmentos.Maps;
+import com.example.woods.Fragmentos.Perfil;
+import com.example.woods.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     int TAG_CODE_PERMISSION_LOCATION;
 
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser == null) {
-            startActivity(new Intent(MainActivity.this, Login.class));
+            startActivity(new Intent(Main.this, Login.class));
             finish();
         } else {
             if(!checkLocPermission()) {
@@ -89,12 +92,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, new Maps());
                 transaction.commitNow();
-                Log.i("santi_Maps Commit", "Maps Commit");
-
-                break;
-
-            case R.id.classificacao:
-
 
                 break;
 
@@ -106,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.sair:
-                Intent it = new Intent(MainActivity.this, Login.class);
+                Intent it = new Intent(Main.this, Login.class);
                 FirebaseUser currentUser = mAuth.getCurrentUser();
 
                 it.putExtra("userEmail", currentUser.getEmail());

@@ -1,4 +1,4 @@
-package com.example.woods;
+package com.example.woods.Fragmentos;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,13 +27,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.woods.Colecoes.Localizacao;
+import com.example.woods.R;
+import com.example.woods.Colecoes.Usuario;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -75,7 +76,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
             getCurrentLocation();
         }
     };
-    private LatLng latLngClick, myLocation;
+    private LatLng myLocation;
     private Button btnFiltrarCancelar, btnAddLoc, btnPermitirLoc;
     private boolean adicionarLoc = false;
 
@@ -114,7 +115,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                     if (!adicionarLoc) {
                         adicionarLoc = true;
                         marker = null;
-                        Log.i("santi_addLocClick", "Adicionar Loc " + adicionarLoc);
 
                         btnFiltrarCancelar.setText("Cancelar");
                         btnAddLoc.setText("Prosseguir");
@@ -190,17 +190,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
             moveToCurrentLocation();
         } else {
             askLocPermission();
-
-            if (checkLocPermission()) {
-                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
-
-                mMap.setMyLocationEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(true);
-                moveToCurrentLocation();
-            } else {
-                // TODO pedir permissão de novo
-            }
         }
     }
 
@@ -208,7 +197,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     public void onMapClick(@NonNull LatLng latLng) {
         double lat = latLng.latitude;
         double lon = latLng.longitude;
-        latLngClick = new LatLng(lat, lon);
+        LatLng latLngClick = new LatLng(lat, lon);
 
         if (adicionarLoc) {
             try {
@@ -281,7 +270,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                 R.layout.spinner,
                 especiesArray);
         spinnerEspecies.setAdapter(adapter);
-        Log.i("santi_itemSpinnerCount", "Count: " + spinnerEspecies.getCount());
         spinnerEspecies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -335,7 +323,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                             usuario.save();
                         }
                     });
-                    Log.i("santi_locAddSuccess", "Loc Add Success!");
 
                     if (marker != null) {
                         marker.remove();
@@ -384,7 +371,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
                                         double distance = myLoc.distanceTo(location);
 
-                                        Log.i("santi_locDistance", "distance: " + distance);
                                         if (distance < 12000) {
                                             markers.add(mMap.addMarker(new MarkerOptions()
                                                     .position(new LatLng(location.getLatitude(), location.getLongitude()))
@@ -415,8 +401,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 especiesArray.add(document.getId());
                             }
-                        } else {
-                            Log.d("santi_especiesError", "Error getting documents: ", task.getException());
                         }
                     }
                 });
