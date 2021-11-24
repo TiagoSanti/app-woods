@@ -27,7 +27,6 @@ public class Login extends AppCompatActivity {
     private Button btnLogin;
     private TextView txtErroLogin, txtCadastro;
     private ProgressBar progressBar;
-
     private FirebaseAuth mAuth;
     private Bundle bundle;
 

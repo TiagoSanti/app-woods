@@ -42,7 +42,6 @@ public class EditarPerfil extends Fragment {
     private final FirebaseFirestore dbReference = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
     private Usuario usuario;
-
     private FragmentManager fragmentManager;
     private Uri mImageUri;
 

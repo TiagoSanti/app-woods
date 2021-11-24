@@ -71,7 +71,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     List<Marker> markers = new ArrayList<>();
     private FusedLocationProviderClient client;
     private LatLng myLocation;
-    private Button btnFiltrarCancelar, btnAddLoc, btnPermitirLoc;
+    private Button btnFiltrarCancelar, btnAddLoc;
     private boolean adicionarLoc = false;
     private final LocationListener locationListener = new LocationListener() {
         @Override
@@ -102,11 +102,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
         btnFiltrarCancelar = view.findViewById(R.id.btnFiltrarCancelar);
         btnAddLoc = view.findViewById(R.id.btnAdicionarLoc);
-        btnPermitirLoc = view.findViewById(R.id.btnPermitirLoc);
-
-        if (checkLocPermission()) {
-            btnPermitirLoc.setVisibility(View.INVISIBLE);
-        }
 
         btnAddLoc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +113,6 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
                         btnFiltrarCancelar.setText("Cancelar");
                         btnAddLoc.setText("Prosseguir");
-                        btnPermitirLoc.setVisibility(View.INVISIBLE);
 
                         moveMapToLocation(myLocation, 19);
                     } else if (marker != null) {
@@ -144,15 +138,8 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                         marker = null;
                     }
                 } else {
-                    createFilterWindow();
+                    createFilterWindow(btnFiltrarCancelar);
                 }
-            }
-        });
-
-        btnPermitirLoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                askLocPermission();
             }
         });
 
@@ -209,7 +196,7 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         }
     }
 
-    public void createFilterWindow() {
+    public void createFilterWindow(Button btnFiltrarCancelar) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         AlertDialog dialog;
 
@@ -243,7 +230,13 @@ public class Maps extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                markers = addMarkers(especie[0]);
+                if(!especie[0].equals("Nenhum")) {
+                    btnFiltrarCancelar.setText("Filtro: "+especie[0]);
+                    markers = addMarkers(especie[0]);
+                } else {
+                    btnFiltrarCancelar.setText("Filtrar");
+                    addInitialMarkers();
+                }
                 dialog.dismiss();
             }
         });

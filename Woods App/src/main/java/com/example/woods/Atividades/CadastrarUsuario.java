@@ -28,7 +28,6 @@ public class CadastrarUsuario extends AppCompatActivity {
     private EditText edtNome, edtSobrenome, edtEmail, edtSenha, edtConfirmarSenha;
     private TextView txtErroCadastro;
     private Button btnCriarConta;
-
     private FirebaseAuth mAuth;
 
     @Override

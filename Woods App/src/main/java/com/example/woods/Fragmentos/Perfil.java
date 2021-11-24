@@ -42,7 +42,6 @@ import java.util.List;
 public class Perfil extends Fragment {
 
     private Context context;
-
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
