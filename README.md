@@ -1,4 +1,4 @@
-# <img src="./Woods%20App/src/main/res/drawable/sprout.png" width="50"/>&nbsp;&nbsp;Trabalho 2 de Programação para Dispositivos Móveis 
+# <img src="./Woods%20App/src/main/res/drawable/sprout.png" width="50"/>&nbsp;&nbsp;App Woods 
 Tiago Clarintino Santi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2021.1906.036-0 </br></br>
 Este é um aplicativo Android desenvolvido como atividade para avaliação da disciplina de Programação para Dispositivos Móveis, da UFMS, no período de 2021-2.
 
