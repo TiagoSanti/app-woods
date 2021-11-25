@@ -27,7 +27,7 @@ Comum - pode fazer a inclusão de localizações e espécies, e alteração de s
 &nbsp;&nbsp;<img src="./readme%20imgs/check.png" alt="drawing" width="20"/> </br>
 * RF-3 O sistema deve permitir ao usuário a filtragem de espécies quanto à visualização das localizações no mapa.
 &nbsp;&nbsp;<img src="./readme%20imgs/check.png" alt="drawing" width="20"/> </br>
-* RF-4 O sistema deve permitir que o usuário visualize uma listagem de todas as localizações adicionadas por ele
+* RF-4 O sistema deve permitir que o usuário visualize uma lista de todas as localizações adicionadas por ele.
 &nbsp;&nbsp;<img src="./readme%20imgs/check.png" alt="drawing" width="20"/> </br>
 * RF-5 O sistema deve garantir segurança para as senhas dos usuários cadastrados.
 &nbsp;&nbsp;<img src="./readme%20imgs/check.png" alt="drawing" width="20"/> </br>
