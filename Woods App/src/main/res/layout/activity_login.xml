@@ -8,7 +8,7 @@
     android:layout_centerHorizontal="false"
     android:layout_gravity="center_horizontal"
     android:background="@color/green5"
-    tools:context=".MainActivity">
+    tools:context=".Atividades.Main">
 
     <ImageView
         android:id="@+id/AppIcon"
@@ -29,6 +29,7 @@
         android:textColor="#FF0000"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@drawable/button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

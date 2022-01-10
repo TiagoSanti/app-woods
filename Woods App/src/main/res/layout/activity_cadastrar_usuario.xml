@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:background="@color/green5"
-    tools:context=".CadastrarUsuario">
+    tools:context=".Atividades.CadastrarUsuario">
 
 
     <EditText
@@ -51,11 +51,15 @@
 
     <Button
         android:id="@+id/btnCriarConta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Criar conta"
+        android:layout_width="107dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/button"
+        android:text="Criar Conta"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtErroCadastro" />
 

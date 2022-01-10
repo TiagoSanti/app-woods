@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragmentos.Maps" >
+
+    <Button
+        android:id="@+id/btnAdicionarLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:includeFontPadding="false"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Adicionar Localização">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnFiltrarCancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="57dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/button"
+        android:text="Filtrar">
+
+    </Button>
+
+
+
+</fragment>
