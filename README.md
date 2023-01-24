@@ -37,4 +37,4 @@ Comum - pode fazer a inclusão de localizações e espécies, e alteração de s
 &nbsp;&nbsp;<img src="./readme%20imgs/not_check.png" alt="drawing" width="20"/> </br>
 
 ### <img src="./readme%20imgs/icon.png" width="25"/>&nbsp;&nbsp;Ícones
-Ícones do app e do Readme feitos por <a href="https://www.freepik.com" title="Freepik">Freepik</a> e <a href="https://fonts.google.com/icons" title="Google Icons">Google Icons</a>.
+Ícones utilizados no app e Readme adquiridos em <a href="https://www.freepik.com" title="Freepik">Freepik</a> e <a href="https://fonts.google.com/icons" title="Google Icons">Google Icons</a>.
